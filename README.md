@@ -6,6 +6,8 @@ This repository allows the extension of the BONELAB Marrow SDK, allowing you to 
 
 One of the major objectives of this repo, is to remove incentives to decompile the game, through strategic inclusion of assets which aren't useful elsewhere, and thorough documentation of what's possible.
 
+This Fork is for use in Labworks, sustaining the original .meta files from Ext-SDK Patch 2 Beta
+
 # How to Install
 
 Install the MarrowSDK by following the original steps at https://github.com/StressLevelZero/MarrowSDK/wiki/ProjectSetup.
