@@ -13,7 +13,7 @@ Install the MarrowSDK by following the original steps at https://github.com/Stre
 ### IMPORTANT!! DO NOT INSTALL THE MARROWSDK PACKAGE AFTER ADDING THE SCOPED REGISTRY!!
 
 After you've added the scoped registry, go to the top left of the ``Package Manager`` and add a ``git URL``.
-The git URL you should add is ``https://github.com/notnotnotswipez/MarrowSDKExt.git``.
+The git URL you should add is ``https://github.com/volx64/MarrowSDKExt-Labworks.git``.
 
 If you've done everything correctly, everything should install properly. Including SLZ's URP.
 
