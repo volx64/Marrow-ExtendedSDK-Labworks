@@ -1,78 +1,29 @@
 using System;
-using System.Runtime.CompilerServices;
 using SLZ.Marrow.VoidLogic;
+using UnityEngine;
 
 namespace SLZ.Bonelab.VoidLogic
 {
 	[Serializable]
 	public class ClipChooser
 	{
-		private Random _random;
+		private System.Random _random;
 
-		public ClipSelectBehavior SelectBehavior
-		{
-			[CompilerGenerated]
-			get
-			{
-				return default(ClipSelectBehavior);
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		[field: SerializeField]
+		public ClipSelectBehavior SelectBehavior { get; set; }
 
-		public ClipDispatchBehavior DispatchBehavior
-		{
-			[CompilerGenerated]
-			get
-			{
-				return default(ClipDispatchBehavior);
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		[field: SerializeField]
+		public ClipDispatchBehavior DispatchBehavior { get; set; }
 
-		public ClipPair[] AudioClips
-		{
-			[CompilerGenerated]
-			get
-			{
-				return null;
-			}
-			[CompilerGenerated]
-			private set
-			{
-			}
-		}
+		[field: SerializeField]
+		public ClipPair[] AudioClips { get; private set; }
 
-		public int ClipIndex
-		{
-			[CompilerGenerated]
-			get
-			{
-				return 0;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		[field: SerializeField]
+		public int ClipIndex { get; set; }
 
-		public int RandomSeed
-		{
-			[CompilerGenerated]
-			get
-			{
-				return 0;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		[field: HideInInspector]
+		[field: SerializeField]
+		public int RandomSeed { get; set; }
 
 		public bool TryChooseClip(EdgeType edgeType, out ClipPair clipPair)
 		{

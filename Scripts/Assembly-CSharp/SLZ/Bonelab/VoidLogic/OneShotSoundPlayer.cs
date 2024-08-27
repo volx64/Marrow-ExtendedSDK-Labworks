@@ -5,20 +5,20 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.CompilerServices;
-using SLZ.Algorithms.Unity;
+using SLZ.Marrow.Utilities;
 using SLZ.Marrow.VoidLogic;
 using UnityEngine;
 
 namespace SLZ.Bonelab.VoidLogic
 {
 	[Obsolete("This interface is not yet considered stable. Use at your own risk!")]
-	[AddComponentMenu("VoidLogic/Bonelab/Sinks/VoidLogic One-shot Sound Player")]
+	[AddComponentMenu("VoidLogic/Bonelab Internal/VoidLogic One-shot Sound Player")]
 	[Support(SupportFlags.CowboySupported, "It's unclear how exactly we want to properly support playing sound. This component is allowed without endorsement until we have an answer for that.")]
 	public class OneShotSoundPlayer : MonoBehaviour, IVoidLogicSink, IVoidLogicNode
 	{
 		[StructLayout(3)]
 		[CompilerGenerated]
-		private struct _003CDoAStart_003Ed__46 : IAsyncStateMachine
+		private struct _003CDoAStart_003Ed__50 : IAsyncStateMachine
 		{
 			public int _003C_003E1__state;
 
@@ -30,21 +30,19 @@ namespace SLZ.Bonelab.VoidLogic
 
 			private UniTask.Awaiter _003C_003Eu__1;
 
-
-			public void MoveNext()
+			void IAsyncStateMachine.MoveNext()
 			{
-				throw new NotImplementedException();
 			}
 
-			public void SetStateMachine(IAsyncStateMachine stateMachine)
+			[DebuggerHidden]
+			void IAsyncStateMachine.SetStateMachine(IAsyncStateMachine stateMachine)
 			{
-				throw new NotImplementedException();
 			}
 		}
 
 		[StructLayout(3)]
 		[CompilerGenerated]
-		private struct _003CSpawnAndPlayAudio_003Ed__47 : IAsyncStateMachine
+		private struct _003CSpawnAndPlayAudio_003Ed__51 : IAsyncStateMachine
 		{
 			public int _003C_003E1__state;
 
@@ -56,22 +54,30 @@ namespace SLZ.Bonelab.VoidLogic
 
 			private UniTask<GameObject>.Awaiter _003C_003Eu__1;
 
-
-			public void MoveNext()
+			void IAsyncStateMachine.MoveNext()
 			{
-				throw new NotImplementedException();
 			}
 
-			public void SetStateMachine(IAsyncStateMachine stateMachine)
+			[DebuggerHidden]
+			void IAsyncStateMachine.SetStateMachine(IAsyncStateMachine stateMachine)
 			{
-				throw new NotImplementedException();
 			}
 		}
 
 		[SerializeField]
-		[Tooltip("Previous node(s) in the chain")]
-		[Interface(typeof(IVoidLogicSource), false)]
+		[HideInInspector]
+		private bool _deprecated;
+
+		[SerializeField]
+		[Obsolete("Dead Field: Please remove")]
+		[Tooltip("Dead Field: Please remove")]
+		[NonReorderable]
 		protected internal MonoBehaviour[] _previous;
+
+		[NonReorderable]
+		[SerializeField]
+		[Tooltip("Previous node(s) in the chain")]
+		protected internal OutputPortReference[] _previousConnections;
 
 		private float _volumeMultiplier;
 
@@ -83,130 +89,50 @@ namespace SLZ.Bonelab.VoidLogic
 
 		private static readonly PortMetadata _portMetadata;
 
-		public PortMetadata PortMetadata { get; }
+		[field: NotUsedInEditMode]
+		[field: SerializeField]
+		[field: ReadOnly(false)]
+		public VoidLogicSubgraph Subgraph { get; set; }
 
-		public VoidLogicSubgraph Subgraph
-		{
-			[CompilerGenerated]
-			get
-			{
-				return null;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		public bool Deprecated => false;
 
-		public ClipChooser ClipChooser
-		{
-			[CompilerGenerated]
-			get
-			{
-				return null;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		[field: SerializeField]
+		public ClipChooser ClipChooser { get; set; }
 
-		public Transform AudioPlacementOverride
-		{
-			[CompilerGenerated]
-			get
-			{
-				return null;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		[field: SerializeField]
+		public Transform AudioPlacementOverride { get; set; }
 
-		public float SourceRadius
-		{
-			[CompilerGenerated]
-			get
-			{
-				return 0f;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		[field: Range(0.1f, 10f)]
+		[field: SerializeField]
+		public float SourceRadius { get; set; }
 
-		public float Volume
-		{
-			[CompilerGenerated]
-			get
-			{
-				return 0f;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		[field: Range(0f, 1f)]
+		[field: SerializeField]
+		public float Volume { get; set; }
 
-		public float SpacialBlend
-		{
-			[CompilerGenerated]
-			get
-			{
-				return 0f;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		[field: Range(0f, 1f)]
+		[field: SerializeField]
+		public float SpacialBlend { get; set; }
 
-		public int MaximumQueueDepth
-		{
-			[CompilerGenerated]
-			get
-			{
-				return 0;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		[field: Range(1f, 5f)]
+		[field: SerializeField]
+		public int MaximumQueueDepth { get; set; }
 
-		private EdgeDetector StartEdgeDetector
-		{
-			[CompilerGenerated]
-			get
-			{
-				return null;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		[field: SerializeField]
+		[field: Tooltip("Edge detection configuration for start input")]
+		private EdgeDetector StartEdgeDetector { get; set; }
 
-		private EdgeDetector ResetEdgeDetector
-		{
-			[CompilerGenerated]
-			get
-			{
-				return null;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		[field: Tooltip("Edge detection configuration for reset input")]
+		[field: SerializeField]
+		private EdgeDetector ResetEdgeDetector { get; set; }
 
 		public int InputCount => 0;
 
 		private PortMetadata SLZ_002EMarrow_002EVoidLogic_002EIVoidLogicNode_002EPortMetadata => default(PortMetadata);
 
-		private void Awake()
+        public PortMetadata PortMetadata => throw new NotImplementedException();
+
+        private void Awake()
 		{
 		}
 
@@ -226,13 +152,13 @@ namespace SLZ.Bonelab.VoidLogic
 		{
 		}
 
-		[AsyncStateMachine(typeof(_003CDoAStart_003Ed__46))]
+		[AsyncStateMachine(typeof(_003CDoAStart_003Ed__50))]
 		private UniTaskVoid DoAStart(EdgeType edgeType)
 		{
 			return default(UniTaskVoid);
 		}
 
-		[AsyncStateMachine(typeof(_003CSpawnAndPlayAudio_003Ed__47))]
+		[AsyncStateMachine(typeof(_003CSpawnAndPlayAudio_003Ed__51))]
 		private UniTask SpawnAndPlayAudio(EdgeType edgeType, ClipPair chosenClipPair)
 		{
 			return default(UniTask);
@@ -247,15 +173,19 @@ namespace SLZ.Bonelab.VoidLogic
 		{
 		}
 
-		public bool TryGetInputAtIndex(uint idx, out IVoidLogicSource input)
+		public bool TryGetInputConnection(uint inputIndex, out OutputPortReference connectedPort)
 		{
-			input = null;
+			connectedPort = default(OutputPortReference);
 			return false;
 		}
 
-		public bool TrySetInputAtIndex(uint idx, IVoidLogicSource input)
+		public bool TryConnectPortToInput(OutputPortReference output, uint inputIndex)
 		{
 			return false;
 		}
-	}
+
+        void IVoidLogicNode.Initialize(ref NodeState nodeState)
+        {
+        }
+    }
 }

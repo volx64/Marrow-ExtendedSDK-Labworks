@@ -1,5 +1,5 @@
-using System.Runtime.CompilerServices;
-using SLZ.Algorithms.Unity;
+using System;
+using SLZ.Marrow.Utilities;
 using SLZ.Marrow.VoidLogic;
 using UnityEngine;
 
@@ -9,10 +9,20 @@ namespace SLZ.Bonelab.VoidLogic
 	[AddComponentMenu(null)]
 	public sealed class OneOffSetEuler : MonoBehaviour, IVoidLogicSink, IVoidLogicNode, IVoidLogicActuator
 	{
-		[Interface(typeof(IVoidLogicSource), false)]
-		[Tooltip("Previous node(s) in the chain")]
 		[SerializeField]
-		internal MonoBehaviour[] _previous;
+		[HideInInspector]
+		private bool _deprecated;
+
+		[Tooltip("Dead Field: Please remove")]
+		[NonReorderable]
+		[Obsolete("Dead Field: Please remove")]
+		[SerializeField]
+		protected internal MonoBehaviour[] _previous;
+
+		[SerializeField]
+		[NonReorderable]
+		[Tooltip("Previous node(s) in the chain")]
+		protected internal OutputPortReference[] _previousConnections;
 
 		[SerializeField]
 		private bool _setOnActuation;
@@ -24,24 +34,16 @@ namespace SLZ.Bonelab.VoidLogic
 
 		private static readonly PortMetadata _portMetadata;
 
-		public PortMetadata PortMetadata { get; }
+		[field: SerializeField]
+		[field: NotUsedInEditMode]
+		[field: ReadOnly(false)]
+		public VoidLogicSubgraph Subgraph { get; set; }
 
-		public VoidLogicSubgraph Subgraph
-		{
-			[CompilerGenerated]
-			get
-			{
-				return null;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		public bool Deprecated => false;
 
 		public int InputCount => 0;
 
-		private PortMetadata SLZ_002EMarrow_002EVoidLogic_002EIVoidLogicNode_002EPortMetadata => default(PortMetadata);
+		PortMetadata IVoidLogicNode.PortMetadata => default(PortMetadata);
 
 		private void Awake()
 		{
@@ -63,17 +65,21 @@ namespace SLZ.Bonelab.VoidLogic
 		{
 		}
 
+		void IVoidLogicNode.Initialize(ref NodeState nodeState)
+		{
+		}
+
 		public void Actuate(ref NodeState nodeState)
 		{
 		}
 
-		public bool TryGetInputAtIndex(uint idx, out IVoidLogicSource input)
+		public bool TryGetInputConnection(uint inputIndex, out OutputPortReference connectedPort)
 		{
-			input = null;
+			connectedPort = default(OutputPortReference);
 			return false;
 		}
 
-		public bool TrySetInputAtIndex(uint idx, IVoidLogicSource input)
+		public bool TryConnectPortToInput(OutputPortReference output, uint inputIndex)
 		{
 			return false;
 		}

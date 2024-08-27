@@ -1,18 +1,27 @@
-using System.Runtime.CompilerServices;
-using SLZ.Algorithms.Unity;
+using System;
+using SLZ.Marrow.Utilities;
 using SLZ.Marrow.VoidLogic;
 using UnityEngine;
 
 namespace SLZ.Bonelab.VoidLogic
 {
-	[AddComponentMenu("VoidLogic/Bonelab/Internal Only/VoidLogic Line Renderer One-off Sink")]
+	[AddComponentMenu("VoidLogic/Bonelab Internal/VoidLogic Line Renderer One-off Sink")]
 	[Support(SupportFlags.CowboySupported, "This is a one-off. Your bugs are your own unless or until we have a plan to generalize this into Marrow.")]
 	public sealed class OneOffLineRendererSink : MonoBehaviour, IVoidLogicSink, IVoidLogicNode
 	{
-		[Tooltip("Previous node in the chain")]
-		[Interface(typeof(IVoidLogicSource), false)]
 		[SerializeField]
-		private MonoBehaviour _previousNode;
+		[HideInInspector]
+		private bool _deprecated;
+
+		[Obsolete("Dead Field: Please remove")]
+		[Tooltip("Dead Field: Please remove")]
+		[NonReorderable]
+		[SerializeField]
+		protected internal MonoBehaviour _previousNode;
+
+		[Tooltip("Previous node in the chain")]
+		[SerializeField]
+		private OutputPortReference _previousConnection;
 
 		private float _priorValue;
 
@@ -36,7 +45,6 @@ namespace SLZ.Bonelab.VoidLogic
 
 		private bool _isHigh;
 
-		[Interface(typeof(IVoidLogicSink), false)]
 		[SerializeField]
 		private MonoBehaviour nextNode;
 
@@ -69,24 +77,16 @@ namespace SLZ.Bonelab.VoidLogic
 
 		private static readonly PortMetadata _portMetadata;
 
-		public PortMetadata PortMetadata { get; }
+		[field: SerializeField]
+		[field: NotUsedInEditMode]
+		[field: ReadOnly(false)]
+		public VoidLogicSubgraph Subgraph { get; set; }
 
-		public VoidLogicSubgraph Subgraph
-		{
-			[CompilerGenerated]
-			get
-			{
-				return null;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		public bool Deprecated => false;
 
 		public int InputCount => 0;
 
-		private PortMetadata SLZ_002EMarrow_002EVoidLogic_002EIVoidLogicNode_002EPortMetadata => default(PortMetadata);
+		PortMetadata IVoidLogicNode.PortMetadata => default(PortMetadata);
 
 		private void Awake()
 		{
@@ -128,13 +128,17 @@ namespace SLZ.Bonelab.VoidLogic
 		{
 		}
 
-		public bool TryGetInputAtIndex(uint idx, out IVoidLogicSource input)
+		void IVoidLogicNode.Initialize(ref NodeState nodeState)
 		{
-			input = null;
+		}
+
+		public bool TryGetInputConnection(uint inputIndex, out OutputPortReference connectedPort)
+		{
+			connectedPort = default(OutputPortReference);
 			return false;
 		}
 
-		public bool TrySetInputAtIndex(uint idx, IVoidLogicSource input)
+		public bool TryConnectPortToInput(OutputPortReference output, uint inputIndex)
 		{
 			return false;
 		}

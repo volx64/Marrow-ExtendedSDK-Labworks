@@ -1,47 +1,44 @@
-using System.Runtime.CompilerServices;
-using SLZ.Algorithms.Unity;
+using System;
+using SLZ.Marrow.Utilities;
 using SLZ.Marrow.VoidLogic;
 using TMPro;
 using UnityEngine;
 
 namespace SLZ.Bonelab.VoidLogic
 {
-	[AddComponentMenu("VoidLogic/Bonelab/Internal Only/VoidLogic Value Reader One-off Sink")]
-	[Support(SupportFlags.CowboySupported, "This is a one-off. Your bugs are your own unless or until we have a plan to generalize this into Marrow.")]
+	[Support(SupportFlags.Unsupported, "Replaced by TextAdapter.")]
+	[Obsolete("Replaced by TextAdapter.")]
+	[AddComponentMenu(null)]
 	public sealed class OneOffValueReaderSink : MonoBehaviour, IVoidLogicSink, IVoidLogicNode
 	{
-		[Tooltip("Previous node in the chain")]
-		[Interface(typeof(IVoidLogicSource), false)]
+		[Tooltip("Dead Field: Please remove")]
 		[SerializeField]
-		private MonoBehaviour _previousNode;
+		[Obsolete("Dead Field: Please remove")]
+		[NonReorderable]
+		protected internal MonoBehaviour _previousNode;
+
+		[SerializeField]
+		[Tooltip("Previous node in the chain")]
+		private OutputPortReference _previousConnection;
 
 		private float _priorValue;
 
-		[SerializeField]
-		private TextMeshPro tmp;
+		public TextMeshPro tmp;
 
 		public string labelText;
 
 		private static readonly PortMetadata _portMetadata;
 
-		public PortMetadata PortMetadata { get; }
+		[field: ReadOnly(false)]
+		[field: NotUsedInEditMode]
+		[field: SerializeField]
+		public VoidLogicSubgraph Subgraph { get; set; }
 
-		public VoidLogicSubgraph Subgraph
-		{
-			[CompilerGenerated]
-			get
-			{
-				return null;
-			}
-			[CompilerGenerated]
-			set
-			{
-			}
-		}
+		public bool Deprecated => false;
 
 		public int InputCount => 0;
 
-		private PortMetadata SLZ_002EMarrow_002EVoidLogic_002EIVoidLogicNode_002EPortMetadata => default(PortMetadata);
+		PortMetadata IVoidLogicNode.PortMetadata => default(PortMetadata);
 
 		private void Awake()
 		{
@@ -59,10 +56,6 @@ namespace SLZ.Bonelab.VoidLogic
 		{
 		}
 
-		private void Start()
-		{
-		}
-
 		private void Update()
 		{
 		}
@@ -71,13 +64,17 @@ namespace SLZ.Bonelab.VoidLogic
 		{
 		}
 
-		public bool TryGetInputAtIndex(uint idx, out IVoidLogicSource input)
+		void IVoidLogicNode.Initialize(ref NodeState nodeState)
 		{
-			input = null;
+		}
+
+		public bool TryGetInputConnection(uint inputIndex, out OutputPortReference connectedPort)
+		{
+			connectedPort = default(OutputPortReference);
 			return false;
 		}
 
-		public bool TrySetInputAtIndex(uint idx, IVoidLogicSource input)
+		public bool TryConnectPortToInput(OutputPortReference output, uint inputIndex)
 		{
 			return false;
 		}

@@ -1,4 +1,5 @@
 using System;
+using SLZ.Marrow;
 using SLZ.Marrow.Data;
 using SLZ.Marrow.VoidLogic;
 using SLZ.Marrow.Warehouse;
@@ -32,40 +33,40 @@ namespace SLZ.Bonelab
 		public MonomatInventory[] inventories;
 
 		[SerializeField]
-		private PowerSource doorPower;
+        public PowerSource doorPower;
 
 		[SerializeField]
-		private int multiplier;
+		public int multiplier;
 
 		[SerializeField]
-		private int itemPrice;
+        public int itemPrice;
 
 		[SerializeField]
-		private int lightBullets;
+        public int lightBullets;
 
 		[SerializeField]
-		private int mediumBullets;
+        public int mediumBullets;
 
 		[SerializeField]
-		private int heavyBullets;
+        public int heavyBullets;
 
 		[SerializeField]
-		private TextMeshPro bulletBalanceTextmesh;
+        public TextMeshPro bulletBalanceTextmesh;
 
 		[SerializeField]
-		private TextMeshPro refundTextmesh;
+        public TextMeshPro refundTextmesh;
 
 		[SerializeField]
-		private AmmoReciever reciever;
+        public AmmoReciever reciever;
 
 		[SerializeField]
-		private GameObject[] previewObjects;
+        public GameObject[] previewObjects;
 
 		[SerializeField]
-		private GameObject[] previewRots;
+        public GameObject[] previewRots;
 
 		[SerializeField]
-		private MeshFilter[] previewMeshes;
+        public MeshFilter[] previewMeshes;
 
 		private SpawnableCrate[] lastCrates;
 
@@ -74,35 +75,35 @@ namespace SLZ.Bonelab
 		private Vector3[] cashedEularOffsets;
 
 		[SerializeField]
-		private MeshFilter drawerBounds;
+        public MeshFilter drawerBounds;
 
 		[SerializeField]
-		private MeshFilter drawerPreviewMesh;
+        public MeshFilter drawerPreviewMesh;
 
 		[SerializeField]
-		private Transform drawerPreviewRots;
+        public Transform drawerPreviewRots;
 
 		public float previewMeshScaleTune;
 
 		private Vector3[] offsets;
 
 		[SerializeField]
-		private Spawnable lightRefundSpawnable;
+        public Spawnable lightRefundSpawnable;
 
 		[SerializeField]
-		private Spawnable mediumRefundSpawnable;
+        public Spawnable mediumRefundSpawnable;
 
 		[SerializeField]
-		private Spawnable heavyRefundSpawnable;
+        public Spawnable heavyRefundSpawnable;
 
 		[SerializeField]
-		private AudioClip _openedClip;
+        public AudioClip _openedClip;
 
 		[SerializeField]
-		private AudioClip _unlockedClip;
+        public AudioClip _unlockedClip;
 
 		[SerializeField]
-		private AudioClip _lockedClip;
+        public AudioClip _lockedClip;
 
 		public Transform giveChangeTransform;
 

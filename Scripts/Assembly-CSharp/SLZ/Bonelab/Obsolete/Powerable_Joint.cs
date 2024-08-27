@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace SLZ.Bonelab.Obsolete
 {
+	[Obsolete("OLD POWERABLE SYSTEM - DO NOT USE!")]
+	[AddComponentMenu(null)]
 	public class Powerable_Joint : Powerable
 	{
 		[Header("VOLTAGE")]
@@ -15,8 +18,8 @@ namespace SLZ.Bonelab.Obsolete
 
 		public float bufferAtt_Voltage;
 
-		[Space(5f)]
 		[Range(-1f, 1f)]
+		[Space(5f)]
 		public float min_InputVoltage;
 
 		[Range(-1f, 1f)]
@@ -25,9 +28,9 @@ namespace SLZ.Bonelab.Obsolete
 		[SerializeField]
 		private bool _warpOnStart;
 
-		[SerializeField]
-		[Header("PRISMATIC JOINT CONTROL")]
 		[Space(5f)]
+		[Header("PRISMATIC JOINT CONTROL")]
+		[SerializeField]
 		private bool _varyTargetPosition;
 
 		[SerializeField]
@@ -107,7 +110,7 @@ namespace SLZ.Bonelab.Obsolete
 		private Vector3 _xAngMaxSpringDamperForce;
 
 		[SerializeField]
-		private ConfigurableJoint jnt_this;
+		public ConfigurableJoint jnt_this;
 
 		private Rigidbody rb_this;
 

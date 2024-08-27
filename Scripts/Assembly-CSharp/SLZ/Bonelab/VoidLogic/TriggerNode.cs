@@ -1,12 +1,14 @@
+using System;
 using System.Collections.Generic;
 using SLZ.Marrow.VoidLogic;
 using UnityEngine;
 
 namespace SLZ.Bonelab.VoidLogic
 {
-	[AddComponentMenu("VoidLogic/Bonelab/Nodes/VoidLogic Trigger")]
-	[Support(SupportFlags.BetaSupported, "This works, but should use Marrow primitives.")]
+	[AddComponentMenu("VoidLogic/Bonelab Internal/VoidLogic Trigger")]
+	[Support(SupportFlags.Deprecated, "This has been replaced by ZoneTriggerSource.")]
 	[RequireComponent(typeof(Collider))]
+	[Obsolete("This has been replaced by ZoneTriggerSource.")]
 	public class TriggerNode : BaseNode
 	{
 		public enum TriggerBehavior
@@ -28,12 +30,12 @@ namespace SLZ.Bonelab.VoidLogic
 
 		private LayerMask _npcLayerMask;
 
-		[SerializeField]
 		[Tooltip("Limit trigger to player only")]
+		[SerializeField]
 		private bool _playerOnly;
 
-		[Tooltip("Limit trigger to player or NPC only")]
 		[SerializeField]
+		[Tooltip("Limit trigger to player or NPC only")]
 		private bool _playerOrNpcOnly;
 
 		[Tooltip("Limit trigger to a specific object collision. CONFLICTS WITH: Player Only")]
@@ -61,6 +63,10 @@ namespace SLZ.Bonelab.VoidLogic
 		}
 
 		private void OnTriggerExit(Collider other)
+		{
+		}
+
+		public override void Initialize(ref NodeState nodeState)
 		{
 		}
 
